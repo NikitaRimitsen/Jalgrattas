@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Jalgratta.Models.Teenus>
+
+@{
+    ViewData["Title"] = "Teenus";
+}
+
+<h1>Teenus</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Info)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hind)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aeg)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hind)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aeg)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TeenusId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TeenusId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TeenusId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
