@@ -9,6 +9,7 @@ namespace Jalgratta.Data
         public DbSet<Teenus>? Teenus { get; set; }
         public DbSet<Tootajad>? Tootajad { get; set; }
         public DbSet<Kasutaja>? Kasutaja { get; set; }
+        public DbSet<Teenusetelimus>? Teenusetelimus { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

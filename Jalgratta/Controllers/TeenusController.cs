@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Jalgratta.Controllers
-
 {
     public class TeenusController : Controller
     {
@@ -69,5 +68,7 @@ namespace Jalgratta.Controllers
         {
             return View();
         }
+
+        
     }
 }

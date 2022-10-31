@@ -38,5 +38,9 @@ namespace Jalgratta.Controllers
 
             return View(kasutaja);
         }
+        public IActionResult Kasutaja()
+        {
+            return View();
+        }
     }
 }

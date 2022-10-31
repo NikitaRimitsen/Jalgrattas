@@ -1,0 +1,14 @@
+﻿@model Jalgratta.Models.Kasutaja
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+    @Html.ValidationSummary()
+    <p id="anketa">Sisesta oma Nimi: @Html.TextBoxFor(x => x.Nimi)</p>
+    <p id="anketa">Sisesta oma Perekonanimi: @Html.TextBoxFor(x => x.Perekonnanimi)</p>
+    <p id="anketa"> Sisesta oma Email: @Html.TextBoxFor(x => x.Email)</p>
+    <p id="anketa"> Sisesta oma Vanus: @Html.TextBoxFor(x => x.Vanus)</p>
+    <p id="anketa"> Sisesta oma Tel:: @Html.TextBoxFor(x => x.telnumber)</p>
+    <input type="submit" value="Saada vastus" />
+    </div>
+}
