@@ -13,6 +13,8 @@ namespace Jalgratta.Models
         public int KasutajaId { get; set; }
         public Kasutaja Kasutaja { get; set; }
 
+        public List<Kasutaja> KasutajaList { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Kuupaev { get; set; }

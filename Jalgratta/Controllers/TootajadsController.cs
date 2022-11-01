@@ -10,85 +10,85 @@ using Jalgratta.Models;
 
 namespace Jalgratta.Controllers
 {
-    public class TeenusController : Controller
+    public class TootajadsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public TeenusController(ApplicationDbContext context)
+        public TootajadsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Teenus
+        // GET: Tootajads
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Teenus.ToListAsync());
+              return View(await _context.Tootajad.ToListAsync());
         }
 
-        // GET: Teenus/Details/5
+        // GET: Tootajads/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Teenus == null)
+            if (id == null || _context.Tootajad == null)
             {
                 return NotFound();
             }
 
-            var teenus = await _context.Teenus
-                .FirstOrDefaultAsync(m => m.TeenusId == id);
-            if (teenus == null)
+            var tootajad = await _context.Tootajad
+                .FirstOrDefaultAsync(m => m.TootajadId == id);
+            if (tootajad == null)
             {
                 return NotFound();
             }
 
-            return View(teenus);
+            return View(tootajad);
         }
 
-        // GET: Teenus/Create
+        // GET: Tootajads/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Teenus/Create
+        // POST: Tootajads/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TeenusId,Info,Hind")] Teenus teenus)
+        public async Task<IActionResult> Create([Bind("TootajadId,Nimi,Vanus,Staaz,Email,Telefon")] Tootajad tootajad)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(teenus);
+                _context.Add(tootajad);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(teenus);
+            return View(tootajad);
         }
 
-        // GET: Teenus/Edit/5
+        // GET: Tootajads/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Teenus == null)
+            if (id == null || _context.Tootajad == null)
             {
                 return NotFound();
             }
 
-            var teenus = await _context.Teenus.FindAsync(id);
-            if (teenus == null)
+            var tootajad = await _context.Tootajad.FindAsync(id);
+            if (tootajad == null)
             {
                 return NotFound();
             }
-            return View(teenus);
+            return View(tootajad);
         }
 
-        // POST: Teenus/Edit/5
+        // POST: Tootajads/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TeenusId,Info,Hind")] Teenus teenus)
+        public async Task<IActionResult> Edit(int id, [Bind("TootajadId,Nimi,Vanus,Staaz,Email,Telefon")] Tootajad tootajad)
         {
-            if (id != teenus.TeenusId)
+            if (id != tootajad.TootajadId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Jalgratta.Controllers
             {
                 try
                 {
-                    _context.Update(teenus);
+                    _context.Update(tootajad);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TeenusExists(teenus.TeenusId))
+                    if (!TootajadExists(tootajad.TootajadId))
                     {
                         return NotFound();
                     }
@@ -113,49 +113,49 @@ namespace Jalgratta.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(teenus);
+            return View(tootajad);
         }
 
-        // GET: Teenus/Delete/5
+        // GET: Tootajads/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Teenus == null)
+            if (id == null || _context.Tootajad == null)
             {
                 return NotFound();
             }
 
-            var teenus = await _context.Teenus
-                .FirstOrDefaultAsync(m => m.TeenusId == id);
-            if (teenus == null)
+            var tootajad = await _context.Tootajad
+                .FirstOrDefaultAsync(m => m.TootajadId == id);
+            if (tootajad == null)
             {
                 return NotFound();
             }
 
-            return View(teenus);
+            return View(tootajad);
         }
 
-        // POST: Teenus/Delete/5
+        // POST: Tootajads/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Teenus == null)
+            if (_context.Tootajad == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Teenus'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Tootajad'  is null.");
             }
-            var teenus = await _context.Teenus.FindAsync(id);
-            if (teenus != null)
+            var tootajad = await _context.Tootajad.FindAsync(id);
+            if (tootajad != null)
             {
-                _context.Teenus.Remove(teenus);
+                _context.Tootajad.Remove(tootajad);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TeenusExists(int id)
+        private bool TootajadExists(int id)
         {
-          return _context.Teenus.Any(e => e.TeenusId == id);
+          return _context.Tootajad.Any(e => e.TootajadId == id);
         }
     }
 }

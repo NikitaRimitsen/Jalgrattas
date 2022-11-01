@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Jalgratta.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Teenus>? Teenus { get; set; }
         public DbSet<Tootajad>? Tootajad { get; set; }

@@ -8,6 +8,6 @@ namespace Jalgratta.Models
         public int TeenusId { set; get; }
         public string Info { get; set; }
         public int Hind { get; set; }
-        public DateTime Aeg { get; set; }
+
     }
 }

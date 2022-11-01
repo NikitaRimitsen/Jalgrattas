@@ -9,7 +9,10 @@ namespace Jalgratta.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext db;
+
         Teenus teenus;
+        Kasutaja kasutaja;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -37,48 +40,29 @@ namespace Jalgratta.Controllers
         {
             return View();
         }
-
-        //[HttpGet]
-        //public IActionResult Registreemine()
-        //{
-        //    return View();
-        //}
-
-        //public ViewResult Registreemine(Teenus teenuse)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _contex.tenus.Teenus.Add(teenuse);
-        //        _context.SaveChanges();
-        //        return View("Thanks", teenuse);
-        //    }
-        //    else
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        ApplicationDbContext db;
-
-
-        [HttpGet]
-
-        public ActionResult CreateKasutaja()
+        public IActionResult Kasutaja()
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Create(Guest guest)
+        public IActionResult Registreemine()
         {
-            db.Guests.Add(guest);
-            db.SaveChanges();
-            return RedirectToAction("Guests");
+            return View();
         }
+
+        [HttpPost]
+        public ViewResult Ankeet(Kasutaja kasutaja)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Kasutaja.Add(kasutaja);
+                db.SaveChanges();
+                return View("Thanks", kasutaja);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
     }
 }
