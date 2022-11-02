@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<h1>Kustuta</h1>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Kasutaja</h4>
     <hr />
@@ -43,10 +42,10 @@
             @Html.DisplayFor(model => model.telnumber)
         </dd>
     </dl>
-    
+    <br />
     <form asp-action="Delete">
         <input type="hidden" asp-for="KasutajaId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Kustuta" class="btn btn-danger" /> |
+        <a asp-action="Index">Tagasi</a>
     </form>
 </div>

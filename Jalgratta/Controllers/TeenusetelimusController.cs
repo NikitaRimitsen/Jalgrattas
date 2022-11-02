@@ -2,73 +2,179 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Jalgratta.Data;
-using Jalgratta.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Jalgratta.Data;
+using Jalgratta.Models;
 
 namespace Jalgratta.Controllers
 {
-    public class TeenusetelimusController
+    public class TeenusetelimusController : Controller
     {
+        private readonly ApplicationDbContext _context;
 
-        ////.
-        //private readonly ApplicationDbContext _context;
+        public TeenusetelimusController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-        //public TeenusetelimusController(ApplicationDbContext context)
-        //{
-        //    _context = context;
-        //}
+        // GET: Teenusetelimus
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Teenusetelimus.Include(t => t.Kasutaja).Include(t => t.Teenus).Include(t => t.Tootajad);
+            return View(await applicationDbContext.ToListAsync());
+        }
 
-        //// get: teenus
-        //public async Task<IActionResult> index()
-        //{
-        //    return View(await _context.Teenus.ToListAsync());
-        //}
+        // GET: Teenusetelimus/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Teenusetelimus == null)
+            {
+                return NotFound();
+            }
 
-        //public async Task<IActionResult> details(int? id)
-        //{
-        //    if (id == null || _context.Teenus == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var teenusetelimus = await _context.Teenusetelimus
+                .Include(t => t.Kasutaja)
+                .Include(t => t.Teenus)
+                .Include(t => t.Tootajad)
+                .FirstOrDefaultAsync(m => m.TelimusId == id);
+            if (teenusetelimus == null)
+            {
+                return NotFound();
+            }
 
-        //    var teenus = await _context.Teenus
-        //        .FirstOrDefaultAsync(m => m.TeenusId == id);
-        //    if (teenus == null)
-        //    {
-        //        return NotFound();
-        //    }
+            return View(teenusetelimus);
+        }
 
-        //    return View(teenus);
-        //}
-        //// GET: Teenus/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+        // GET: Teenusetelimus/Create
+        public IActionResult Create()
+        {
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "KasutajaId");
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "TeenusId");
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "TootajadId");
+            return View();
+        }
 
-        //// POST: Teenus/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("TeenusId,Info,Hind,Aeg")] Teenus teenus)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(teenus);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(teenus);
-        //}
+        // POST: Teenusetelimus/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("TelimusId,TootajadId,TeenusId,KasutajaId,Kuupaev")] Teenusetelimus teenusetelimus)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(teenusetelimus);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "KasutajaId", teenusetelimus.KasutajaId);
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "TeenusId", teenusetelimus.TeenusId);
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "TootajadId", teenusetelimus.TootajadId);
+            return View(teenusetelimus);
+        }
 
-        //public IActionResult Teenus()
-        //{
-        //    return View();
-        //}
+        // GET: Teenusetelimus/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.Teenusetelimus == null)
+            {
+                return NotFound();
+            }
 
+            var teenusetelimus = await _context.Teenusetelimus.FindAsync(id);
+            if (teenusetelimus == null)
+            {
+                return NotFound();
+            }
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "KasutajaId", teenusetelimus.KasutajaId);
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "TeenusId", teenusetelimus.TeenusId);
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "TootajadId", teenusetelimus.TootajadId);
+            return View(teenusetelimus);
+        }
+
+        // POST: Teenusetelimus/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("TelimusId,TootajadId,TeenusId,KasutajaId,Kuupaev")] Teenusetelimus teenusetelimus)
+        {
+            if (id != teenusetelimus.TelimusId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(teenusetelimus);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TeenusetelimusExists(teenusetelimus.TelimusId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "KasutajaId", teenusetelimus.KasutajaId);
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "TeenusId", teenusetelimus.TeenusId);
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "TootajadId", teenusetelimus.TootajadId);
+            return View(teenusetelimus);
+        }
+
+        // GET: Teenusetelimus/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _context.Teenusetelimus == null)
+            {
+                return NotFound();
+            }
+
+            var teenusetelimus = await _context.Teenusetelimus
+                .Include(t => t.Kasutaja)
+                .Include(t => t.Teenus)
+                .Include(t => t.Tootajad)
+                .FirstOrDefaultAsync(m => m.TelimusId == id);
+            if (teenusetelimus == null)
+            {
+                return NotFound();
+            }
+
+            return View(teenusetelimus);
+        }
+
+        // POST: Teenusetelimus/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Teenusetelimus == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Teenusetelimus'  is null.");
+            }
+            var teenusetelimus = await _context.Teenusetelimus.FindAsync(id);
+            if (teenusetelimus != null)
+            {
+                _context.Teenusetelimus.Remove(teenusetelimus);
+            }
+            
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool TeenusetelimusExists(int id)
+        {
+          return _context.Teenusetelimus.Any(e => e.TelimusId == id);
+        }
     }
 }

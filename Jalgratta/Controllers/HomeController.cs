@@ -44,6 +44,14 @@ namespace Jalgratta.Controllers
         {
             return View();
         }
+        public IActionResult Tootajad()
+        {
+            return View();
+        }
+        public IActionResult Teenusetelimus()
+        {
+            return View();
+        }
         public IActionResult Registreemine()
         {
             return View();

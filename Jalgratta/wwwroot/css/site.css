@@ -14,13 +14,29 @@ html {
 }
 
 body {
-  margin-bottom:60px;
+    margin-bottom: 60px;
+    background-color: AliceBlue;
 }
 
 #hoolduslite{
     width: 40%;
 }
 
+.block-left {
+    width: 49%;
+    height: 500px;
+    overflow: auto;
+    float: left;
+
+}
+
+.block-right {
+    margin-top: 200px;
+    width: 48%;
+    height: 800px;
+    overflow: auto;
+    margin-left: 2%;
+}
 body .cybr-btn + .cybr-btn {
     margin-top: 2rem;
 }

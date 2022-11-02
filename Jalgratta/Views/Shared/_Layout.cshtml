@@ -26,23 +26,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Hooldus">Hooldus</a>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Rentimine">Rentimine</a>
+                        </li>*@
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Teenus" asp-action="Index">Teenus</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Teenus" asp-action="Teenus">Teenus</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Tootajad" asp-action="Tootajad">Tootajad</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tootajads" asp-action="Index">Tootajad</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Kasutajas" asp-action="Index">Kasutaja</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Registreemine">Registreemine</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Teenusetelimus" asp-action="Index">Teenuse telimus</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

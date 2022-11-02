@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
-
 <h4>Teenus</h4>
 <hr />
 <div class="row">
@@ -23,15 +21,16 @@
                 <input asp-for="Hind" class="form-control" />
                 <span asp-validation-for="Hind" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Loo uus" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Tagasi</a>
 </div>
 
 @section Scripts {
