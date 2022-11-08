@@ -13,7 +13,9 @@ namespace Jalgratta.Models
         public int Vanus { get; set; }
         public int Staaz { get; set; }
         public string Email { get; set; }
-        public int Telefon { get; set; }
+        [Required(ErrorMessage = "Sisesta oma tel. number!!!")]
+        [RegularExpression(@"\+372.+", ErrorMessage = "Vale telefoni number. Alguses on +372..")]
+        public string Telefon { get; set; }
 
     }
 }

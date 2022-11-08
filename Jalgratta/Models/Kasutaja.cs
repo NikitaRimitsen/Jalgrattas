@@ -10,6 +10,6 @@ namespace Jalgratta.Models
         public string Perekonnanimi { get; set; }
         public string Email { get; set; }
         public int Vanus { get; set; }
-        public int telnumber { get; set; }
+        public string telnumber { get; set; }
     }
 }

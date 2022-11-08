@@ -50,9 +50,9 @@ namespace Jalgratta.Controllers
         // GET: Teenusetelimus/Create
         public IActionResult Create()
         {
-            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "KasutajaId");
-            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "TeenusId");
-            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "TootajadId");
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Nimi");
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info");
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi");
             return View();
         }
 
@@ -69,9 +69,9 @@ namespace Jalgratta.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "KasutajaId", teenusetelimus.KasutajaId);
-            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "TeenusId", teenusetelimus.TeenusId);
-            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "TootajadId", teenusetelimus.TootajadId);
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Nimi", teenusetelimus.KasutajaId);
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimus.TeenusId);
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimus.TootajadId);
             return View(teenusetelimus);
         }
 
@@ -88,9 +88,9 @@ namespace Jalgratta.Controllers
             {
                 return NotFound();
             }
-            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "KasutajaId", teenusetelimus.KasutajaId);
-            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "TeenusId", teenusetelimus.TeenusId);
-            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "TootajadId", teenusetelimus.TootajadId);
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Nimi", teenusetelimus.KasutajaId);
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimus.TeenusId);
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimus.TootajadId);
             return View(teenusetelimus);
         }
 
@@ -126,9 +126,9 @@ namespace Jalgratta.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "KasutajaId", teenusetelimus.KasutajaId);
-            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "TeenusId", teenusetelimus.TeenusId);
-            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "TootajadId", teenusetelimus.TootajadId);
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Nimi", teenusetelimus.KasutajaId);
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimus.TeenusId);
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimus.TootajadId);
             return View(teenusetelimus);
         }
 
