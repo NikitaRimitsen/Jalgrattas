@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Jalgratta.Data;
 using Jalgratta.Models;
 
 namespace Jalgratta.Controllers
 {
     public class TeenusController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly DataBase _context;
 
-        public TeenusController(ApplicationDbContext context)
+        public TeenusController(DataBase context)
         {
             _context = context;
         }
@@ -141,7 +140,7 @@ namespace Jalgratta.Controllers
         {
             if (_context.Teenus == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Teenus'  is null.");
+                return Problem("Entity set 'DataBase.Teenus'  is null.");
             }
             var teenus = await _context.Teenus.FindAsync(id);
             if (teenus != null)

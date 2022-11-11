@@ -57,20 +57,7 @@ namespace Jalgratta.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ViewResult Ankeet(Kasutaja kasutaja)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Kasutaja.Add(kasutaja);
-                db.SaveChanges();
-                return View("Thanks", kasutaja);
-            }
-            else
-            {
-                return View();
-            }
-        }
+
 
     }
 }

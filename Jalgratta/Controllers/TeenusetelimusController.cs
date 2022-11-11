@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Jalgratta.Data;
 using Jalgratta.Models;
 
 namespace Jalgratta.Controllers
 {
     public class TeenusetelimusController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly DataBase _context;
 
-        public TeenusetelimusController(ApplicationDbContext context)
+        public TeenusetelimusController(DataBase context)
         {
             _context = context;
         }
@@ -22,8 +21,8 @@ namespace Jalgratta.Controllers
         // GET: Teenusetelimus
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Teenusetelimus.Include(t => t.Kasutaja).Include(t => t.Teenus).Include(t => t.Tootajad);
-            return View(await applicationDbContext.ToListAsync());
+            var dataBase = _context.Teenusetelimus.Include(t => t.Kasutaja).Include(t => t.Teenus).Include(t => t.Tootajad);
+            return View(await dataBase.ToListAsync());
         }
 
         // GET: Teenusetelimus/Details/5
@@ -50,7 +49,7 @@ namespace Jalgratta.Controllers
         // GET: Teenusetelimus/Create
         public IActionResult Create()
         {
-            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Nimi");
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Perekonnanimi");
             ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info");
             ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi");
             return View();
@@ -69,7 +68,7 @@ namespace Jalgratta.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Nimi", teenusetelimus.KasutajaId);
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Perekonnanimi", teenusetelimus.KasutajaId);
             ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimus.TeenusId);
             ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimus.TootajadId);
             return View(teenusetelimus);
@@ -88,7 +87,7 @@ namespace Jalgratta.Controllers
             {
                 return NotFound();
             }
-            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Nimi", teenusetelimus.KasutajaId);
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Perekonnanimi", teenusetelimus.KasutajaId);
             ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimus.TeenusId);
             ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimus.TootajadId);
             return View(teenusetelimus);
@@ -126,7 +125,7 @@ namespace Jalgratta.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Nimi", teenusetelimus.KasutajaId);
+            ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Perekonnanimi", teenusetelimus.KasutajaId);
             ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimus.TeenusId);
             ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimus.TootajadId);
             return View(teenusetelimus);
@@ -160,7 +159,7 @@ namespace Jalgratta.Controllers
         {
             if (_context.Teenusetelimus == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Teenusetelimus'  is null.");
+                return Problem("Entity set 'DataBase.Teenusetelimus'  is null.");
             }
             var teenusetelimus = await _context.Teenusetelimus.FindAsync(id);
             if (teenusetelimus != null)

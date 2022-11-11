@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Jalgratta.Data;
 using Jalgratta.Models;
 
 namespace Jalgratta.Controllers
 {
     public class KasutajasController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly DataBase _context;
 
-        public KasutajasController(ApplicationDbContext context)
+        public KasutajasController(DataBase context)
         {
             _context = context;
         }
@@ -141,7 +140,7 @@ namespace Jalgratta.Controllers
         {
             if (_context.Kasutaja == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Kasutaja'  is null.");
+                return Problem("Entity set 'DataBase.Kasutaja'  is null.");
             }
             var kasutaja = await _context.Kasutaja.FindAsync(id);
             if (kasutaja != null)

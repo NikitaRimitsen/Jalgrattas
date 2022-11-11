@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Jalgratta.Data;
 using Jalgratta.Models;
 
 namespace Jalgratta.Controllers
 {
     public class TootajadsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly DataBase _context;
 
-        public TootajadsController(ApplicationDbContext context)
+        public TootajadsController(DataBase context)
         {
             _context = context;
         }
@@ -141,7 +140,7 @@ namespace Jalgratta.Controllers
         {
             if (_context.Tootajad == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Tootajad'  is null.");
+                return Problem("Entity set 'DataBase.Tootajad'  is null.");
             }
             var tootajad = await _context.Tootajad.FindAsync(id);
             if (tootajad != null)
