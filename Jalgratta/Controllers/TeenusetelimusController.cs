@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Jalgratta.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Jalgratta.Controllers
 {
@@ -17,7 +18,7 @@ namespace Jalgratta.Controllers
         {
             _context = context;
         }
-
+        [Authorize]
         // GET: Teenusetelimus
         public async Task<IActionResult> Index()
         {
@@ -26,6 +27,7 @@ namespace Jalgratta.Controllers
         }
 
         // GET: Teenusetelimus/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Teenusetelimus == null)
@@ -98,6 +100,7 @@ namespace Jalgratta.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Edit(int id, [Bind("TelimusId,TootajadId,TeenusId,KasutajaId,Kuupaev")] Teenusetelimus teenusetelimus)
         {
             if (id != teenusetelimus.TelimusId)

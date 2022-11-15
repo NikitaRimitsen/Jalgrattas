@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Jalgratta.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Jalgratta.Controllers
 {
@@ -17,7 +18,7 @@ namespace Jalgratta.Controllers
         {
             _context = context;
         }
-
+        [Authorize]
         // GET: Tootajads
         public async Task<IActionResult> Index()
         {

@@ -28,10 +28,7 @@ namespace Jalgratta.Controllers
         {
             return View();
         }
-        public IActionResult About()
-        {
-            return View();
-        }
+
         public IActionResult Rentimine()
         {
             return View();
@@ -48,6 +45,7 @@ namespace Jalgratta.Controllers
         {
             return View();
         }
+        [Authorize]
         public IActionResult Teenusetelimus()
         {
             return View();
@@ -56,7 +54,10 @@ namespace Jalgratta.Controllers
         {
             return View();
         }
-
+        public IActionResult About()
+        {
+            return View();
+        }
 
 
     }

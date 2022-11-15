@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Jalgratta.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Jalgratta.Controllers
 {
@@ -43,6 +44,7 @@ namespace Jalgratta.Controllers
         }
 
         // GET: Teenus/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -65,6 +67,7 @@ namespace Jalgratta.Controllers
         }
 
         // GET: Teenus/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Teenus == null)
@@ -85,6 +88,7 @@ namespace Jalgratta.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("TeenusId,Info,Hind")] Teenus teenus)
         {
             if (id != teenus.TeenusId)
@@ -114,7 +118,7 @@ namespace Jalgratta.Controllers
             }
             return View(teenus);
         }
-
+        [Authorize]
         // GET: Teenus/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -136,6 +140,7 @@ namespace Jalgratta.Controllers
         // POST: Teenus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Teenus == null)

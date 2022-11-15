@@ -156,5 +156,8 @@ namespace Jalgratta.Controllers
         {
           return _context.Kasutaja.Any(e => e.KasutajaId == id);
         }
+
+
+
     }
 }
