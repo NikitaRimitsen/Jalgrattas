@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Jalgratta.Models;
+using System.Web.Helpers;
+using System.Net;
+using System.Net.Mail;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Jalgratta.Controllers
 {
@@ -45,6 +50,7 @@ namespace Jalgratta.Controllers
         // GET: Kasutajas/Create
         public IActionResult Create()
         {
+            
             return View();
         }
 
@@ -60,8 +66,11 @@ namespace Jalgratta.Controllers
                 _context.Add(kasutaja);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                
             }
+            E_mail(kasutaja);
             return View(kasutaja);
+            
         }
 
         // GET: Kasutajas/Edit/5
@@ -157,7 +166,27 @@ namespace Jalgratta.Controllers
           return _context.Kasutaja.Any(e => e.KasutajaId == id);
         }
 
-
+        //Если это кто то читает, то скорее всего тебя зовут Лёха. Если нет, то выйди отсюда, да, да, закрой код и
+        //иди отсюда и больше не возращайся
+        //Либо послушай это: https://www.youtube.com/watch?v=tv-F7CWKGH4
+        public void E_mail(Kasutaja kasutaja)
+        {
+            try
+            {
+                WebMail.SmtpServer = "smtp.gmail.com";
+                WebMail.SmtpPort = 587;
+                WebMail.EnableSsl = true;
+                WebMail.UserName = "testemailtest730@gmail.com";
+                WebMail.Password = "testtesttest111";
+                WebMail.From = "testemailtest730@gmail.com";
+                WebMail.Send("testemailtest730@gmail.com", "Vastus kutsele", " vastas ");
+                ViewBag.Message = "Kiri on saatnud!";
+            }
+            catch (Exception)
+            {
+                ViewBag.Message = "Mul on kahjul! Ei saa kirja saada!!!";
+            }
+        }
 
     }
 }
