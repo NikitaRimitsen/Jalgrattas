@@ -165,10 +165,6 @@ namespace Jalgratta.Controllers
         {
           return _context.Kasutaja.Any(e => e.KasutajaId == id);
         }
-
-        //Если это кто то читает, то скорее всего тебя зовут Лёха. Если нет, то выйди отсюда, да, да, закрой код и
-        //иди отсюда и больше не возращайся
-        //Либо послушай это: https://www.youtube.com/watch?v=tv-F7CWKGH4
         public void E_mail(Kasutaja kasutaja)
         {
             try
