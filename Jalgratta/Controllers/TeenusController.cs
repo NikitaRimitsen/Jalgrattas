@@ -44,7 +44,7 @@ namespace Jalgratta.Controllers
         }
 
         // GET: Teenus/Create
-        [Authorize]
+        [Authorize(Policy = "readpolicy")]
         public IActionResult Create()
         {
             return View();
@@ -53,6 +53,7 @@ namespace Jalgratta.Controllers
         // POST: Teenus/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "readpolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TeenusId,Info,Hind")] Teenus teenus)
@@ -67,7 +68,7 @@ namespace Jalgratta.Controllers
         }
 
         // GET: Teenus/Edit/5
-        [Authorize]
+        [Authorize(Policy = "readpolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Teenus == null)
@@ -88,7 +89,7 @@ namespace Jalgratta.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Policy = "readpolicy")]
         public async Task<IActionResult> Edit(int id, [Bind("TeenusId,Info,Hind")] Teenus teenus)
         {
             if (id != teenus.TeenusId)
@@ -118,7 +119,7 @@ namespace Jalgratta.Controllers
             }
             return View(teenus);
         }
-        [Authorize]
+        [Authorize(Policy = "readpolicy")]
         // GET: Teenus/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -140,7 +141,7 @@ namespace Jalgratta.Controllers
         // POST: Teenus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Policy = "readpolicy")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Teenus == null)

@@ -18,7 +18,7 @@ namespace Jalgratta.Controllers
         {
             _context = context;
         }
-        [Authorize]
+        [Authorize(Policy = "readpolicy")]
         // GET: Teenusetelimus
         public async Task<IActionResult> Index()
         {
