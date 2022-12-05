@@ -18,7 +18,7 @@ namespace Jalgratta.Controllers
         {
             _context = context;
         }
-        [Authorize(Policy = "readpolicy")]
+        //[Authorize(Policy = "writepolicy")]
         // GET: Teenusetelimus
         public async Task<IActionResult> Index()
         {
@@ -68,7 +68,7 @@ namespace Jalgratta.Controllers
             {
                 _context.Add(teenusetelimus);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["KasutajaId"] = new SelectList(_context.Kasutaja, "KasutajaId", "Perekonnanimi", teenusetelimus.KasutajaId);
             ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimus.TeenusId);

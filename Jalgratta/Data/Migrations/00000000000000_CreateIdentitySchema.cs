@@ -20,7 +20,18 @@ namespace Jalgratta.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
+                }
+                //columns: table => 
+                //{
+                //    KasutajaId = 1,
+                //    Nimi = "Nikita",
+                //    Perekonnanimi = "Rimitsen",
+                //    Email = "nikita@gmail.com",
+                //    Vanus = 18,
+                //    telnumber = "+372 7894 4897"
+                //}
+                );
+
 
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",

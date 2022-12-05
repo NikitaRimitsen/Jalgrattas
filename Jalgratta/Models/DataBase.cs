@@ -10,9 +10,9 @@ namespace Jalgratta.Models
         public DbSet<Tootajad>? Tootajad { get; set; }
         public DbSet<Kasutaja>? Kasutaja { get; set; }
         public DbSet<Teenusetelimus>? Teenusetelimus { get; set; }
+        public DbSet<Teenusetelimuskasutaja>? Teenusetelimuskasutaja { get; set; }
 
-        public DataBase(DbContextOptions<DataBase> options)
-            : base(options)
+        public DataBase(DbContextOptions<DataBase> options) : base(options)
         {
             Database.EnsureCreated();
         }
@@ -55,6 +55,7 @@ namespace Jalgratta.Models
                 new Tootajad { TootajadId = 2, Nimi = "Stas", Vanus = 45, Staaz = 15, Email = "stas.velo@gmail.com", Telefon = "+372 7898 4675"},
                 new Tootajad { TootajadId = 3, Nimi = "Julia", Vanus = 22, Staaz = 2, Email = "julia.velo@gmail.com", Telefon = "+372 7898 4682"}
                 );
+
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Jalgratta.Models.Teenus>
+@using Microsoft.AspNetCore.Identity;
 
 @{
     ViewData["Title"] = "Index";
@@ -7,9 +8,18 @@
 
 <h1>Teenus</h1>
 
+
+<div class="block-left3">
+
+
+
+
+@if(this.User.IsInRole("Admin")){
 <p>
     <a asp-action="Create">Lisama Uus</a>
 </p>
+}
+else{}
 <table class="table">
     <thead>
         <tr>
@@ -17,7 +27,8 @@
                 @Html.DisplayNameFor(model => model.Info)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Hind)
+                @Html.DisplayNameFor(model => model.Hind) 
+                
             </th>
             <th></th>
         </tr>
@@ -29,13 +40,52 @@
                 @Html.DisplayFor(modelItem => item.Info)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Hind)
+                @Html.DisplayFor(modelItem => item.Hind) €
             </td>
+            
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TeenusId">Muuda</a> |
+                @if(this.User.IsInRole("Admin")){
+                 <a asp-action="Edit" asp-route-id="@item.TeenusId">Muuda</a>
                 <a asp-action="Delete" asp-route-id="@item.TeenusId">Kustuta</a>
-            </td>
+                }
+                else{}
+                </td>
         </tr>
 }
     </tbody>
 </table>
+
+</div>
+<div class="block-right3">
+<div id="hoolduslite">
+    <strong style="">Hooldus Lite 40 €</strong>
+
+    <p>
+        Rataste sirgendamine ja reguleerimine, käikude ja pidurite reguleerimine,
+        rataste pumpamine, jalgratta seisundi hindamine, lihtsate komponentide(kett, Piduriklotsid, kaablid jne) asendamine.).
+    </p>
+    <p style="font-style: italic; font-size: 16px">Varuosade maksumus ei sisaldu hinnas.</p>
+    </>
+</div>
+<div id="hoolduspremium">
+    <br />
+
+    <strong style="">Hooldus Premium 89 €</strong>
+
+    <p>
+        Rataste redigeerimine ja reguleerimine, käikude ja pidurite reguleerimine, rataste pumpamine,
+        lihtsate komponentide vahetus (kett, piduriklotsid, trossid jne) puhastamine / määrimine / rooliotsa reguleerimine,
+        puhastamine / määrimine / vankri reguleerimine, puhastamine / määrimine / reguleerimine esi- ja tagaratta puksid,
+        esikäikude ja mõlema käiguvahetaja puhastamine, vigaste või valesti käituvate komponentide väljavahetamine.
+    </p>
+    <p style="font-style: italic; font-size: 16px">Varuosade maksumus ei sisaldu hinnas.</p>
+</div>
+
+
+<a href="/Teenusetelimuskasutajas/Create">
+    <button class="cybr-btn" style="margin-left: 8%;">
+        Broneerima<span aria-hidden></span>
+        <span aria-hidden class="cybr-btn__glitch">Broneerima</span>
+    </button>
+</a>
+</div>

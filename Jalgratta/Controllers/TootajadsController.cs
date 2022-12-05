@@ -18,7 +18,7 @@ namespace Jalgratta.Controllers
         {
             _context = context;
         }
-        [Authorize(Policy = "readpolicy")]
+        [Authorize(Policy = "writepolicy")]
         // GET: Tootajads
         public async Task<IActionResult> Index()
         {

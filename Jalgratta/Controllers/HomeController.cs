@@ -45,7 +45,6 @@ namespace Jalgratta.Controllers
         {
             return View();
         }
-        [Authorize]
         public IActionResult Teenusetelimus()
         {
             return View();

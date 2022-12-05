@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Jalgratta.Models.Teenusetelimuskasutaja>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (this.User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Lisama Uus</a>
+    </p>
+}
+else{}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nimi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Perekonnanimi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vanus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telnumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tootajad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Teenus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kuupaev)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Perekonnanimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vanus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telnumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tootajad.Nimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teenus.Info)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kuupaev)
+            </td>
+            <td>
+                 @if(this.User.IsInRole("Admin")){
+                <a asp-action="Edit" asp-route-id="@item.TelimusId">Muuda</a> 
+                <a asp-action="Delete" asp-route-id="@item.TelimusId">Kustuta</a>
+                 }
+                 else{}
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

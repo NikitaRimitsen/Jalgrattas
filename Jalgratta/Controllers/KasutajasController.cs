@@ -27,7 +27,7 @@ namespace Jalgratta.Controllers
         }
 
         // GET: Kasutajas
-        [Authorize(Policy = "readpolicy")]
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Index()
         {
               return View(await _context.Kasutaja.ToListAsync());
@@ -69,56 +69,7 @@ namespace Jalgratta.Controllers
             {
                 _context.Add(kasutaja);
                 await _context.SaveChangesAsync();
-
-                try
-                {
-                    SmtpMail oMail = new SmtpMail("TryIt");
-
-                    // Your email address
-                    oMail.From = "liveid@hotmail.com";
-
-                    // Set recipient email address
-                    oMail.To = "support@emailarchitect.net";
-
-                    // Set email subject
-                    oMail.Subject = "test email from hotmail, outlook, office 365 account";
-
-                    // Set email body
-                    oMail.TextBody = "this is a test email sent from c# project using hotmail.";
-
-                    // Hotmail/Outlook SMTP server address
-                    SmtpServer oServer = new SmtpServer("smtp.office365.com");
-
-                    // If your account is office 365, please change to Office 365 SMTP server
-                    // SmtpServer oServer = new SmtpServer("smtp.office365.com");
-
-                    // User authentication should use your
-                    // email address as the user name.
-                    oServer.User = "liveid@hotmail.com";
-
-                    // If you got authentication error, try to create an app password instead of your user password.
-                    oServer.Password = "your password or app password";
-
-                    // use 587 TLS port
-                    oServer.Port = 587;
-
-                    // detect SSL/TLS connection automatically
-                    oServer.ConnectType = SmtpConnectType.ConnectSSLAuto;
-
-                    Console.WriteLine("start to send email over TLS...");
-
-                    SmtpClient oSmtp = new SmtpClient();
-                    oSmtp.SendMail(oServer, oMail);
-
-                    Console.WriteLine("email was sent successfully!");
-                }
-                catch (Exception ep)
-                {
-                    Console.WriteLine("failed to send email with the following error:");
-                    Console.WriteLine(ep.Message);
-                }
-
-
+                E_mail(kasutaja);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -219,50 +170,33 @@ namespace Jalgratta.Controllers
           return _context.Kasutaja.Any(e => e.KasutajaId == id);
         }
 
-        //public void E_mail(Kasutaja kasutaja)
-        //{
-        //    try
-        //    {
-        //        WebMail.SmtpServer = "smtp.yandex.com";
-        //        WebMail.SmtpPort = 456;
-        //        WebMail.EnableSsl = true;
-        //        WebMail.UserName = "testtestov1chtest@yandex.com";
-        //        WebMail.Password = "testtestovisch";//opi-ldUIK4I1
-        //        WebMail.From = "testtestov1chtest@yandex.com";
-        //        WebMail.Send("testtestov1chtest@yandex.com", "Vastus kutsele", " vastas ");
-        //        ViewBag.Message = "Kiri on saatnud!";
-        //    }
-        //    catch (Exception)
-        //    {
-        //        ViewBag.Message = "Mul on kahjul! Ei saa kirja saada!!!";
-        //    }
-        //}
+        public async void E_mail(Kasutaja kasutaja)
+        {
+            try
+            {
+                SmtpMail oMail = new SmtpMail("TryIt");
+                oMail.From = "jalgratta@hotmail.com";
+                oMail.To = kasutaja.Email;
+                oMail.Subject = "Kiri";
+                oMail.TextBody = "Aitäh! Mis on meiega registreerunud!";
+                SmtpServer oServer = new SmtpServer("smtp.office365.com");
+                oServer.User = "jalgratta@hotmail.com";
+                oServer.Password = "jalgratajarent4";
+                oServer.Port = 587;
+                oServer.ConnectType = SmtpConnectType.ConnectSSLAuto;
 
-        //public void E_mail2()
-        //{ 
-        //    WebMail.SmtpServer = "imap.mail.ru";
-        //    WebMail.SmtpPort = 465;
-        //    WebMail.EnableSsl = true;
-        //    WebMail.UserName = "testtestovich74@mail.ru";
-        //    WebMail.Password = "opi-ldUIK4I1";
-        //    WebMail.From = "testtestovich74@mail.ru";
-        //    //WebMail.Send(komu, "Napominanie","ne zabud pridi");
-        //    WebMail.Send("aleksei.tiora@gmail.com", "Meeldetuletus", "Ärge unustage tulla puhkusele :) ");
+                //Console.WriteLine("start to send email over TLS...");
 
-        //}
+                SmtpClient oSmtp = new SmtpClient();
+                oSmtp.SendMail(oServer, oMail);
 
-        //public async void E_mail3()
-        //{
-        //    MailAddress from = new MailAddress("testtestovich74@mail.ru", "Tom");
-        //    MailAddress to = new MailAddress("aleksei.tiora@gmail.com");
-        //    MailMessage m = new MailMessage(from, to);
-        //    m.Subject = "Тест";
-        //    m.Body = "Письмо-тест 2 работы smtp-клиента";
-        //    SmtpClient smtp = new SmtpClient("smtp.mail.ru", 465);
-        //    smtp.Credentials = new NetworkCredential("testtestovich74@mail.ru", "opi-ldUIK4I1");
-        //    smtp.EnableSsl = true;
-        //    await smtp.SendMailAsync(m);
-        //    Console.WriteLine("Письмо отправлено");
-        //}
+                //Console.WriteLine("email was sent successfully!");
+            }
+            catch (Exception ep)
+            {
+                //Console.WriteLine("failed to send email with the following error:");
+                //Console.WriteLine(ep.Message);
+            }
+        }
     }
 }

@@ -1,0 +1,69 @@
+﻿@model Jalgratta.Models.Teenusetelimuskasutaja
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Kustuta</h1>
+
+<div>
+    <h4>Teenusetelimuskasutaja</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nimi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nimi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Perekonnanimi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Perekonnanimi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Vanus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Vanus)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.telnumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.telnumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tootajad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tootajad.Telefon)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Teenus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Teenus.TeenusId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Kuupaev)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Kuupaev)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="TelimusId" />
+        <input type="submit" value="Kustuta" class="btn btn-danger" /> |
+        <a asp-action="Index">Tagasi</a>
+    </form>
+</div>
