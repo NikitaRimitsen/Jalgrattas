@@ -1,21 +1,21 @@
-﻿@model Jalgratta.Models.Teenusetelimuskasutaja
+﻿@model Jalgratta.Models.Teenusetelimuse
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Lisama</h1>
+<h1>Create</h1>
 
-<h4>Teenusetelimuskasutaja</h4>
+<h4>Teenusetelimuse</h4>
 <hr />
-<div class="row" style="margin-left: 20%;">
+<div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" >
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label class="control-label">Nimi</label>
-                <input asp-for="Nimi" class="form-control"/>
+                <label asp-for="Nimi" class="control-label"></label>
+                <input asp-for="Nimi" class="form-control" />
                 <span asp-validation-for="Nimi" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,51 +24,33 @@
                 <span asp-validation-for="Perekonnanimi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Vanus" class="control-label"></label>
-                <input asp-for="Vanus" class="form-control" />
-                <span asp-validation-for="Vanus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="telnumber" class="control-label"></label>
                 <input asp-for="telnumber" class="form-control" />
                 <span asp-validation-for="telnumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Teenus" class="control-label"></label>
-                <select asp-for="TeenusId" class="form-control" asp-items="ViewBag.TeenusId"></select>
+                <label asp-for="TeenusId" class="control-label"></label>
+                <select asp-for="TeenusId" class ="form-control" asp-items="ViewBag.TeenusId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Tootajad" class="control-label"></label>
+                <label asp-for="TootajadId" class="control-label"></label>
                 <select asp-for="TootajadId" class ="form-control" asp-items="ViewBag.TootajadId"></select>
             </div>
-            
-
-            
             <div class="form-group">
                 <label asp-for="Kuupaev" class="control-label"></label>
-                <input asp-for="Kuupaev" name="Kuupaev" class="form-control" />
-@*                @if (name = "Kuupaev")
-                {*@
+                <input asp-for="Kuupaev" class="form-control" />
                 <span asp-validation-for="Kuupaev" class="text-danger"></span>
             </div>
-@*            }
-            else { }*@
-            <br />
             <div class="form-group">
-                <input type="submit" value="Bronnerima" class="btn btn-primary"/>
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-<br />
-@*<div>
-    <a asp-action="Index">Tagasi</a>
-</div>*@
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

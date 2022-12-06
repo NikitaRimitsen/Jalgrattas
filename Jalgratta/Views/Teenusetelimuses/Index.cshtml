@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Jalgratta.Models.Teenusetelimuse>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nimi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Perekonnanimi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telnumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Teenus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tootajad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kuupaev)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Perekonnanimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telnumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teenus.TeenusId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tootajad.Telefon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kuupaev)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TelimusId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TelimusId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TelimusId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

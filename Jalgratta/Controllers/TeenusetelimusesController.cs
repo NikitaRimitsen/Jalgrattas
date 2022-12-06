@@ -7,47 +7,48 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Jalgratta.Models;
 using EASendMail;
-using SmtpClient = EASendMail.SmtpClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Jalgratta.Controllers
 {
-    public class TeenusetelimuskasutajasController : Controller
+    public class TeenusetelimusesController : Controller
     {
         private readonly DataBase _context;
 
-        public TeenusetelimuskasutajasController(DataBase context)
+        public TeenusetelimusesController(DataBase context)
         {
             _context = context;
         }
 
-        // GET: Teenusetelimuskasutajas
+        // GET: Teenusetelimuses
         public async Task<IActionResult> Index()
         {
-            var dataBase = _context.Teenusetelimuskasutaja.Include(t => t.Teenus).Include(t => t.Tootajad);
+            var dataBase = _context.Teenusetelimuse.Include(t => t.Teenus).Include(t => t.Tootajad);
             return View(await dataBase.ToListAsync());
         }
 
-        // GET: Teenusetelimuskasutajas/Details/5
+        // GET: Teenusetelimuses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Teenusetelimuskasutaja == null)
+            if (id == null || _context.Teenusetelimuse == null)
             {
                 return NotFound();
             }
 
-            var teenusetelimuskasutaja = await _context.Teenusetelimuskasutaja
+            var teenusetelimuse = await _context.Teenusetelimuse
                 .Include(t => t.Teenus)
                 .Include(t => t.Tootajad)
                 .FirstOrDefaultAsync(m => m.TelimusId == id);
-            if (teenusetelimuskasutaja == null)
+            if (teenusetelimuse == null)
             {
                 return NotFound();
             }
 
-            return View(teenusetelimuskasutaja);
+            return View(teenusetelimuse);
         }
 
-        // GET: Teenusetelimuskasutajas/Create
+        // GET: Teenusetelimuses/Create
+        [Authorize(Policy = "readpolicy")]
         public IActionResult Create()
         {
             ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info");
@@ -55,51 +56,52 @@ namespace Jalgratta.Controllers
             return View();
         }
 
-        // POST: Teenusetelimuskasutajas/Create
+        // POST: Teenusetelimuses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TelimusId,Nimi,Perekonnanimi,Email,Vanus,telnumber,TootajadId,TeenusId,Kuupaev")] Teenusetelimuskasutaja teenusetelimuskasutaja)
+        public async Task<IActionResult> Create([Bind("TelimusId,Nimi,Perekonnanimi,telnumber,TeenusId,TootajadId,Kuupaev")] Teenusetelimuse teenusetelimuse)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(teenusetelimuskasutaja);
+                _context.Add(teenusetelimuse);
                 await _context.SaveChangesAsync();
-                E_mail(teenusetelimuskasutaja);
+                E_mail(teenusetelimuse);
                 return RedirectToAction("Index", "Home");
             }
-            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimuskasutaja.TeenusId);
-            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimuskasutaja.TootajadId);
-            return View(teenusetelimuskasutaja);
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimuse.TeenusId);
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimuse.TootajadId);
+            return View(teenusetelimuse);
         }
 
-        // GET: Teenusetelimuskasutajas/Edit/5
+        // GET: Teenusetelimuses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Teenusetelimuskasutaja == null)
+            if (id == null || _context.Teenusetelimuse == null)
             {
                 return NotFound();
             }
 
-            var teenusetelimuskasutaja = await _context.Teenusetelimuskasutaja.FindAsync(id);
-            if (teenusetelimuskasutaja == null)
+            var teenusetelimuse = await _context.Teenusetelimuse.FindAsync(id);
+            if (teenusetelimuse == null)
             {
                 return NotFound();
             }
-            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimuskasutaja.TeenusId);
-            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimuskasutaja.TootajadId);
-            return View(teenusetelimuskasutaja);
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimuse.TeenusId);
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimuse.TootajadId);
+            return View(teenusetelimuse);
         }
 
-        // POST: Teenusetelimuskasutajas/Edit/5
+        // POST: Teenusetelimuses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TelimusId,Nimi,Perekonnanimi,Email,Vanus,telnumber,TootajadId,TeenusId,Kuupaev")] Teenusetelimuskasutaja teenusetelimuskasutaja)
+        public async Task<IActionResult> Edit(int id, [Bind("TelimusId,Nimi,Perekonnanimi,telnumber,TeenusId,TootajadId,Kuupaev")] Teenusetelimuse teenusetelimuse)
         {
-            if (id != teenusetelimuskasutaja.TelimusId)
+            if (id != teenusetelimuse.TelimusId)
             {
                 return NotFound();
             }
@@ -108,12 +110,12 @@ namespace Jalgratta.Controllers
             {
                 try
                 {
-                    _context.Update(teenusetelimuskasutaja);
+                    _context.Update(teenusetelimuse);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TeenusetelimuskasutajaExists(teenusetelimuskasutaja.TelimusId))
+                    if (!TeenusetelimuseExists(teenusetelimuse.TelimusId))
                     {
                         return NotFound();
                     }
@@ -124,65 +126,65 @@ namespace Jalgratta.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimuskasutaja.TeenusId);
-            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimuskasutaja.TootajadId);
-            return View(teenusetelimuskasutaja);
+            ViewData["TeenusId"] = new SelectList(_context.Teenus, "TeenusId", "Info", teenusetelimuse.TeenusId);
+            ViewData["TootajadId"] = new SelectList(_context.Tootajad, "TootajadId", "Nimi", teenusetelimuse.TootajadId);
+            return View(teenusetelimuse);
         }
 
-        // GET: Teenusetelimuskasutajas/Delete/5
+        // GET: Teenusetelimuses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Teenusetelimuskasutaja == null)
+            if (id == null || _context.Teenusetelimuse == null)
             {
                 return NotFound();
             }
 
-            var teenusetelimuskasutaja = await _context.Teenusetelimuskasutaja
+            var teenusetelimuse = await _context.Teenusetelimuse
                 .Include(t => t.Teenus)
                 .Include(t => t.Tootajad)
                 .FirstOrDefaultAsync(m => m.TelimusId == id);
-            if (teenusetelimuskasutaja == null)
+            if (teenusetelimuse == null)
             {
                 return NotFound();
             }
 
-            return View(teenusetelimuskasutaja);
+            return View(teenusetelimuse);
         }
 
-        // POST: Teenusetelimuskasutajas/Delete/5
+        // POST: Teenusetelimuses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Teenusetelimuskasutaja == null)
+            if (_context.Teenusetelimuse == null)
             {
-                return Problem("Entity set 'DataBase.Teenusetelimuskasutaja'  is null.");
+                return Problem("Entity set 'DataBase.Teenusetelimuse'  is null.");
             }
-            var teenusetelimuskasutaja = await _context.Teenusetelimuskasutaja.FindAsync(id);
-            if (teenusetelimuskasutaja != null)
+            var teenusetelimuse = await _context.Teenusetelimuse.FindAsync(id);
+            if (teenusetelimuse != null)
             {
-                _context.Teenusetelimuskasutaja.Remove(teenusetelimuskasutaja);
+                _context.Teenusetelimuse.Remove(teenusetelimuse);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TeenusetelimuskasutajaExists(int id)
+        private bool TeenusetelimuseExists(int id)
         {
-          return _context.Teenusetelimuskasutaja.Any(e => e.TelimusId == id);
+          return _context.Teenusetelimuse.Any(e => e.TelimusId == id);
         }
 
-        public async void E_mail(Teenusetelimuskasutaja teenusetelimuskasutaja)
+        public async void E_mail(Teenusetelimuse teenusetelimuse)
         {
             try
             {
                 SmtpMail oMail = new SmtpMail("TryIt");
                 oMail.From = "jalgratta@hotmail.com";
 
-                oMail.To = teenusetelimuskasutaja.Email;
+                oMail.To = User.Identity?.Name.ToString(); ;
                 oMail.Subject = "Broneerimine";
-                oMail.TextBody = $"Aitäh! {teenusetelimuskasutaja.Nimi} et broneerisite meie juures jalgratta hoolduse!\nTeenuse kuupäev: {teenusetelimuskasutaja.Kuupaev}";
+                oMail.TextBody = $"Aitäh! {teenusetelimuse.Nimi} et broneerisite meie juures jalgratta hoolduse!\nTeenuse kuupäev: {teenusetelimuse.Kuupaev}";
                 //oMail.Date = "teenusetelimuskasutaja.Kuupaev;
                 SmtpServer oServer = new SmtpServer("smtp.office365.com");
                 oServer.User = "jalgratta@hotmail.com";
