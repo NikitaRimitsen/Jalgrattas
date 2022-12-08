@@ -47,18 +47,18 @@
                 @Html.DisplayFor(modelItem => item.telnumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Teenus.TeenusId)
+                @Html.DisplayFor(modelItem => item.Teenus.Info)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tootajad.Telefon)
+                @Html.DisplayFor(modelItem => item.Tootajad.Nimi)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Kuupaev)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TelimusId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TelimusId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TelimusId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.TelimusId">Muuda</a> |
+                <a asp-action="Details" asp-route-id="@item.TelimusId">Detailid</a> |
+                <a asp-action="Delete" asp-route-id="@item.TelimusId">Kustuta</a>
             </td>
         </tr>
 }
